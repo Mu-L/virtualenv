@@ -6,7 +6,6 @@ import subprocess
 import sys
 from os.path import dirname, normcase
 from pathlib import Path
-from shlex import quote
 from subprocess import Popen
 
 import pytest
@@ -15,7 +14,7 @@ from virtualenv.run import cli_run
 
 
 class ActivationTester:
-    def __init__(self, of_class, session, cmd, activate_script, extension) -> None:  # noqa: PLR0913
+    def __init__(self, of_class, session, cmd, activate_script, extension) -> None:
         self.of_class = of_class
         self._creator = session.creator
         self._version_cmd = [cmd, "--version"]
@@ -154,7 +153,7 @@ class ActivationTester:
         assert out[-1] == "None", raw
 
     def quote(self, s):
-        return quote(s)
+        return self.of_class.quote(s)
 
     def python_cmd(self, cmd):
         return f"{os.path.basename(sys.executable)} -c {self.quote(cmd)}"
@@ -241,7 +240,7 @@ def activation_python(request, tmp_path_factory, special_char_name, current_fast
     return session
 
 
-@pytest.fixture()
+@pytest.fixture
 def activation_tester(activation_python, monkeypatch, tmp_path, is_inside_ci):
     def _tester(tester_class):
         tester = tester_class(activation_python)
