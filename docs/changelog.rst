@@ -6,6 +6,21 @@
 
 .. towncrier release notes start
 
+**********************
+ v21.0.0 (2026-02-25)
+**********************
+
+Deprecations and Removals - 21.0.0
+==================================
+
+- The Python discovery logic has been extracted into a standalone ``python-discovery`` package on PyPI (`documentation
+  <https://python-discovery.readthedocs.io/>`_) and is now consumed as a dependency. If you previously imported
+  discovery internals directly (e.g. ``from virtualenv.discovery.py_info import PythonInfo``), switch to ``from
+  python_discovery import PythonInfo``. Backward-compatibility re-export shims are provided at
+  ``virtualenv.discovery.py_info``, ``virtualenv.discovery.py_spec``, and ``virtualenv.discovery.cached_py_info``,
+  however these are considered unsupported and may be removed in a future release - by :user:`gaborbernat`.
+  (:issue:`3070`)
+
 ***********************
  v20.39.1 (2026-02-25)
 ***********************
