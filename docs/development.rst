@@ -89,6 +89,40 @@ run:
     Avoid using ``# noqa`` comments to suppress linter warnings - wherever possible, warnings should be fixed instead.
     ``# noqa`` comments are reserved for rare cases where the recommended style causes severe readability problems.
 
+Type checking
+=============
+
+virtualenv ships a :PEP:`561` ``py.typed`` marker and has comprehensive type annotations across the entire codebase.
+This means downstream consumers and type checkers automatically recognize virtualenv as an inline-typed package.
+
+All new code **must** include complete type annotations for function parameters and return types. To verify annotations
+locally, run:
+
+.. code-block:: console
+
+    tox -e type
+
+This uses `ty <https://docs.astral.sh/ty/>`_ (Astral's Rust-based type checker) to validate annotations against Python
+3.14. A second environment checks compatibility with the minimum supported version:
+
+.. code-block:: console
+
+    tox -e type-3.8
+
+Both environments validate that annotations are consistent and correct.
+
+Annotation guidelines
+---------------------
+
+- Use ``from __future__ import annotations`` at the top of every module (enforced by ruff's ``required-imports``
+  setting).
+- Place imports that are only needed for type checking inside an ``if TYPE_CHECKING:`` block to avoid runtime overhead.
+- Ruff's ``ANN`` rules are enabled. ``ANN401`` (``typing.Any``) is suppressed on a case-by-case basis with inline ``#
+  noqa: ANN401`` comments where ``Any`` is genuinely required (e.g. serialization, dynamic dispatch).
+- Prefer concrete types over ``Any``. Use ``Union`` / ``|`` for nullable or multi-type parameters.
+- When a type error is genuinely unfixable (e.g. third-party library limitations), suppress it with an inline ``# ty:
+  ignore[rule-name]`` comment and a brief justification.
+
 Building documentation
 ======================
 
