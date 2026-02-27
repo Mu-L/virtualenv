@@ -7,6 +7,16 @@
 .. towncrier release notes start
 
 **********************
+ v21.1.0 (2026-02-27)
+**********************
+
+Features - 21.1.0
+=================
+
+- Add comprehensive type annotations across the entire codebase and ship a PEP 561 ``py.typed`` marker so downstream
+  consumers and type checkers recognize virtualenv as an inline-typed package - by :user:`rahuldevikar`. (:issue:`3075`)
+
+**********************
  v21.0.0 (2026-02-25)
 **********************
 
