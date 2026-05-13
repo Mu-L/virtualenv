@@ -7,6 +7,15 @@
 .. towncrier release notes start
 
 **********************
+ v21.3.3 (2026-05-13)
+**********************
+
+Bugfixes - 21.3.3
+=================
+
+- recognize GraalPy interpreters using the normalized ``GraalPy`` name - by :user:`timfel`. (:issue:`3144`)
+
+**********************
  v21.3.2 (2026-05-12)
 **********************
 
